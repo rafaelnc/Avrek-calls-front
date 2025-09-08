@@ -45,3 +45,4 @@ const API_BASE_URL = 'https://avrek-calls.onrender.com';
 - The configuration is centralized in `src/config/api.ts`
 - Both main and backup services use the same configuration
 - Changes require a rebuild to take effect
+
