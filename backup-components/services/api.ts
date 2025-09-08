@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AuthResponse, Call, CreateCallRequest, LoginRequest } from '../types';
-import { API_BASE_URL } from '../../src/config/api';
+// API Configuration for backup
+const API_BASE_URL = 'https://avrek-calls-front-production.up.railway.app';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
