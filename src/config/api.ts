@@ -11,4 +11,4 @@ export const API_CONFIG = {
 };
 
 // Export the current API base URL
-export const API_BASE_URL = API_CONFIG.DEVELOPMENT;
+export const API_BASE_URL = API_CONFIG.CURRENT;
