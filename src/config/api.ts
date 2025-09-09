@@ -6,8 +6,8 @@ export const API_CONFIG = {
   // Development API URL (for local development)
   DEVELOPMENT: 'http://localhost:3001',
   
-  // Current environment - change this to switch between environments
-  CURRENT: 'https://avrek-calls-production.up.railway.app'
+  // Current environment - gets from environment variables
+  CURRENT: import.meta.env.VITE_API_URL || 'https://avrek-calls-production.up.railway.app'
 };
 
 // Export the current API base URL
