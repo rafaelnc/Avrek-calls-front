@@ -51,7 +51,7 @@ const CallHistoryPage: React.FC = () => {
     try {
       const data = await callsService.getCalls();
       setCalls(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to fetch call history:', err);
     } finally {
       setLoading(false);
@@ -104,7 +104,7 @@ const CallHistoryPage: React.FC = () => {
       const result = await callsService.clearAllCalls();
       setSyncResult(`Cleared ${result.deletedCount} calls successfully`);
       await fetchCalls(); // Refresh the list
-    } catch (error) {
+    } catch (error: any) {
       setSyncResult('Failed to clear calls');
       console.error('Failed to clear calls:', error);
     } finally {
@@ -130,7 +130,7 @@ const CallHistoryPage: React.FC = () => {
       await fetchCalls(); // Refresh the list
       console.log('✅ Calls list refreshed');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ Sync failed with error:', error);
       console.error('❌ Error details:', {
         message: error.message,

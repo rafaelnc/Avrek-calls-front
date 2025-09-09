@@ -5,7 +5,7 @@ import { callsService } from '../services/api';
 
 const CallConfigurationPage: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [fromNumber, setFromNumber] = useState('');
+  // const [fromNumber, setFromNumber] = useState(''); // Temporarily commented out
   const [baseScript, setBaseScript] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,7 +27,7 @@ const CallConfigurationPage: React.FC = () => {
       });
       setSuccess('Call started successfully! You can view the progress in Call History.');
       setPhoneNumber('');
-      setFromNumber('');
+      // setFromNumber(''); // Temporarily commented out
       setBaseScript('');
     } catch (err) {
       setError('Failed to start call. Please try again.');

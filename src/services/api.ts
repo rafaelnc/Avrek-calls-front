@@ -106,7 +106,7 @@ export const callsService = {
       const response = await api.post('/calls/sync');
       console.log('✅ API Service - syncWithBlandAi success:', response.data);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ API Service - syncWithBlandAi error:', error);
       console.error('❌ API Service - Error response:', error.response);
       throw error;
