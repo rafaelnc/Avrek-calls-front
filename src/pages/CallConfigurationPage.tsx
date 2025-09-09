@@ -22,7 +22,7 @@ const CallConfigurationPage: React.FC = () => {
     try {
       await callsService.createCall({
         phoneNumber,
-        fromNumber: fromNumber || undefined,
+        fromNumber: '', // Always send empty value for fromNumber
         baseScript,
       });
       setSuccess('Call started successfully! You can view the progress in Call History.');
@@ -99,7 +99,8 @@ const CallConfigurationPage: React.FC = () => {
               />
             </div>
             
-            <div>
+            {/* Temporarily commented out From Number input */}
+            {/* <div>
               <label htmlFor="fromNumber" className="block text-sm font-semibold text-avrek-blue mb-2">
                 From Number (Optional)
               </label>
@@ -112,7 +113,7 @@ const CallConfigurationPage: React.FC = () => {
                 disabled={loading}
                 className="input-field"
               />
-            </div>
+            </div> */}
             
             <div>
               <label htmlFor="baseScript" className="block text-sm font-semibold text-avrek-blue mb-2">

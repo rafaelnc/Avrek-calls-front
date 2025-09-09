@@ -51,19 +51,21 @@ export const callsService = {
     const payload = {
       phone_number: phoneNumber,
       task: task,
-      voice: callData.voice || 'June',
-      wait_for_greeting: callData.wait_for_greeting ?? false,
-      record: callData.record ?? true,
-      answered_by_enabled: callData.answered_by_enabled ?? true,
-      noise_cancellation: callData.noise_cancellation ?? false,
-      interruption_threshold: callData.interruption_threshold || 100,
-      block_interruptions: callData.block_interruptions ?? false,
-      max_duration: callData.max_duration || 12,
-      model: callData.model || 'base',
+      voice: 'June',
+      wait_for_greeting: true,
+      record: true,
+      answered_by_enabled: true,
+      noise_cancellation: false,
+      interruption_threshold: 100,
+      block_interruptions: false,
+      max_duration: 12,
+      model: 'base',
       language: callData.language || 'en',
-      background_track: callData.background_track || 'none',
+      background_track: 'none',
       endpoint: callData.endpoint || 'https://api.bland.ai',
-      voicemail_action: callData.voicemail_action || 'hangup',
+      voicemail_action: 'hangup',
+      temperature: 0.7,
+      json_mode_enabled: true,
       // Legacy fields for backward compatibility
       fromNumber: callData.fromNumber,
     };
@@ -95,8 +97,20 @@ export const callsService = {
   },
 
   syncWithBlandAi: async (): Promise<{ message: string; syncedCount: number; createdCount: number; updatedCount: number }> => {
-    const response = await api.post('/calls/sync');
-    return response.data;
+    console.log('🌐 API Service - syncWithBlandAi called');
+    console.log('🔑 Current token:', localStorage.getItem('token') ? 'Present' : 'Missing');
+    console.log('📍 API Base URL:', API_BASE_URL);
+    console.log('🎯 Full URL:', `${API_BASE_URL}/calls/sync`);
+    
+    try {
+      const response = await api.post('/calls/sync');
+      console.log('✅ API Service - syncWithBlandAi success:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('❌ API Service - syncWithBlandAi error:', error);
+      console.error('❌ API Service - Error response:', error.response);
+      throw error;
+    }
   },
 };
 

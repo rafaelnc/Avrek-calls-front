@@ -115,13 +115,41 @@ const CallHistoryPage: React.FC = () => {
   const handleSyncWithBlandAi = async () => {
     setIsSyncing(true);
     setSyncResult('');
+    
+    console.log('🔄 Starting sync with Bland.ai...');
+    console.log('🔑 Token from localStorage:', localStorage.getItem('token') ? 'Present' : 'Missing');
+    
     try {
+      console.log('📡 Making API call to /calls/sync...');
       const result = await callsService.syncWithBlandAi();
+      
+      console.log('✅ Sync API response:', result);
       setSyncResult(`Sync completed: ${result.syncedCount} synced, ${result.createdCount} created, ${result.updatedCount} updated`);
+      
+      console.log('🔄 Refreshing calls list...');
       await fetchCalls(); // Refresh the list
+      console.log('✅ Calls list refreshed');
+      
     } catch (error) {
-      setSyncResult('Failed to sync with Bland.ai');
-      console.error('Failed to sync:', error);
+      console.error('❌ Sync failed with error:', error);
+      console.error('❌ Error details:', {
+        message: error.message,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        headers: error.response?.headers
+      });
+      
+      if (error.response?.status === 401) {
+        setSyncResult('Authentication failed. Please login again.');
+        console.log('🔐 Authentication error - redirecting to login...');
+        logout();
+        navigate('/login');
+      } else if (error.response?.status === 500) {
+        setSyncResult('Server error during sync. Check backend logs.');
+      } else {
+        setSyncResult(`Failed to sync with Bland.ai: ${error.message}`);
+      }
     } finally {
       setIsSyncing(false);
     }

@@ -46,3 +46,5 @@ const API_BASE_URL = 'https://avrek-calls.onrender.com';
 - Both main and backup services use the same configuration
 - Changes require a rebuild to take effect
 
+
+
