@@ -23,7 +23,13 @@ export default defineConfig({
   },
   preview: {
     port: 3000,
-    host: true
+    host: true,
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      'avrek-calls-front-production.up.railway.app',
+      '.railway.app'
+    ]
   }
 })
 
