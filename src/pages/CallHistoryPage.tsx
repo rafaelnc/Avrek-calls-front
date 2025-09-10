@@ -13,7 +13,6 @@ const CallHistoryPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCallId, setSelectedCallId] = useState<number | null>(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [isClearing, setIsClearing] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<string>('');
   const { logout } = useAuth();
@@ -94,23 +93,6 @@ const CallHistoryPage: React.FC = () => {
     navigate('/call-configuration');
   };
 
-  const handleClearAll = async () => {
-    if (!window.confirm('Are you sure you want to clear all calls? This action cannot be undone.')) {
-      return;
-    }
-
-    setIsClearing(true);
-    try {
-      const result = await callsService.clearAllCalls();
-      setSyncResult(`Cleared ${result.deletedCount} calls successfully`);
-      await fetchCalls(); // Refresh the list
-    } catch (error: any) {
-      setSyncResult('Failed to clear calls');
-      console.error('Failed to clear calls:', error);
-    } finally {
-      setIsClearing(false);
-    }
-  };
 
   const handleSyncWithBlandAi = async () => {
     setIsSyncing(true);
@@ -363,33 +345,6 @@ const CallHistoryPage: React.FC = () => {
                       Sync
                     </>
                   )}
-                </button>
-                <button 
-                  onClick={handleClearAll}
-                  disabled={isClearing || calls.length === 0}
-                  className="bg-red-600 text-white px-4 py-2.5 rounded-xl font-medium hover:bg-red-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isClearing ? (
-                    <>
-                      <svg className="w-4 h-4 inline mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                      Clearing...
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      Clear All
-                    </>
-                  )}
-                </button>
-                <button className="bg-white text-slate-600 px-4 py-2.5 rounded-xl font-medium border border-slate-200 hover:bg-slate-50 transition-colors duration-200">
-                  <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Export
                 </button>
               </div>
             </div>
