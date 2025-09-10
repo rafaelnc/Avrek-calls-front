@@ -43,7 +43,7 @@ const CallDetailsModal: React.FC<CallDetailsModalProps> = ({ callId, isOpen, onC
   const [details, setDetails] = useState<CallDetails | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'transcript' | 'responses'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'transcript'>('overview');
 
   useEffect(() => {
     if (isOpen && callId) {
@@ -165,16 +165,6 @@ const CallDetailsModal: React.FC<CallDetailsModalProps> = ({ callId, isOpen, onC
                   }`}
                 >
                   Transcript
-                </button>
-                <button
-                  onClick={() => setActiveTab('responses')}
-                  className={`px-6 py-3 font-medium text-sm transition-colors duration-200 ${
-                    activeTab === 'responses'
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  Responses ({details.responses.length})
                 </button>
               </div>
 
@@ -306,43 +296,6 @@ const CallDetailsModal: React.FC<CallDetailsModalProps> = ({ callId, isOpen, onC
                   </div>
                 )}
 
-                {activeTab === 'responses' && (
-                  <div className="space-y-4">
-                    {details.responses.length > 0 ? (
-                      <div className="space-y-4">
-                        {details.responses.map((response, index) => (
-                          <div key={index} className="bg-gray-50 rounded-xl p-6">
-                            <div className="flex items-center justify-between mb-4">
-                              <h3 className="text-lg font-semibold text-gray-900">
-                                Response {index + 1}
-                              </h3>
-                            </div>
-                            <div className="space-y-3">
-                              {response.question && (
-                                <div>
-                                  <span className="text-sm font-medium text-gray-600">Question:</span>
-                                  <p className="text-gray-700 mt-1">{response.question}</p>
-                                </div>
-                              )}
-                              <div>
-                                <span className="text-sm font-medium text-gray-600">Answer:</span>
-                                <p className="text-gray-700 mt-1">{response.answer || response}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="text-center py-12">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                        <h3 className="mt-2 text-sm font-medium text-gray-900">No responses collected</h3>
-                        <p className="mt-1 text-sm text-gray-500">This call didn't collect any structured responses.</p>
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
             </div>
           ) : null}
