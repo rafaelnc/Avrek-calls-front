@@ -38,3 +38,4 @@ VITE_NODE_ENV=production
 Se as variáveis de ambiente não estiverem definidas, o sistema usará os valores padrão:
 - Produção: `https://avrek-calls-production.up.railway.app`
 - Desenvolvimento: `http://localhost:3001`
+
